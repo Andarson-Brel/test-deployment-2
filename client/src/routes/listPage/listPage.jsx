@@ -4,10 +4,22 @@ import Card from "../../components/card/Card";
 import Map from "../../components/map/Map";
 import { Await, useLoaderData } from "react-router-dom";
 import { Suspense } from "react";
-
+import axios from 'axios';
+import React, { useState, useEffect } from 'react';
 function ListPage() {
+    const [posts, setPosts] = useState([]);
+
+  useEffect(() => {
+    axios.get('https://test-deployment-2-krcx.onrender.com/api/posts')
+      .then(response => {
+        setPosts(response.data);
+      })
+      .catch(error => {
+        console.error('Error fetching posts:', error);
+      });
+  }, []);
   const data = useLoaderData();
-console.log(data)
+console.log(posts)
   return (
     <div className="listPage">
       <div className="listContainer">
